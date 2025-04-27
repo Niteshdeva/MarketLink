@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Crop Recommendation</title>
+    <script>
+        async function loadRecommendation() {
+            try {
+                const response = await fetch("crop_recommendation_result.json"); // ✅ This path must match
+                const data = await response.json();
+                document.getElementById("crop").textContent = data.recommended_crop;
+                document.getElementById("reason").textContent = data.reason;
+            } catch (error) {
+                document.getElementById("crop").textContent = "Error loading recommendation.";
+                document.getElementById("reason").textContent = "Could not fetch JSON.";
+                console.error("Could not load JSON:", error);
+            }
+        }
+
+        window.onload = loadRecommendation;
+    </script>
+</head>
+<body>
+    <h1>🌱 Recommended Crop</h1>
+    <p><strong>Crop:</strong> <span id="crop">Loading...</span></p>
+    <p><strong>Why:</strong> <span id="reason">Loading...</span></p>
+</body>
+</html>
